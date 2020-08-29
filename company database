@@ -1,0 +1,58 @@
+/*company database*/
+CREATE DATABASE company;
+USE company;
+/*create employee table*/
+CREATE TABLE employee(emp_id INT PRIMARY KEY, emp_name_first VARCHAR(20) NOT NULL, emp_last_name VARCHAR(20) NOT NULL,
+birth_date DATE NOT NULL, gender ENUM ('M','F'), salary INT,hire_date DATE);
+/*craete table department*/
+CREATE TABLE department(dept_id INT PRIMARY KEY,dept_name VARCHAR(20) NOT NULL,UNIQUE KEY(dept_name));
+/*craete table department employee*/
+CREATE TABLE dept_employee(emp_id INT  ,dept_id INT  ,from_date DATE NOT NULL,to_date DATE NOT NULL,KEY(emp_id),KEY(dept_id),
+FOREIGN KEY (emp_id) REFERENCES employee(emp_id) ON DELETE CASCADE, FOREIGN KEY (dept_id) REFERENCES department(dept_id) ON DELETE CASCADE, PRIMARY KEY (emp_id, dept_id));
+   /*insert into employee table*/
+   INSERT INTO employee VALUES(100,'BALIRAM','CHAUHAN','1997-05-24','M',20000,'2020-05-12');
+   INSERT INTO employee VALUES(101,'ARUN','GEORGE','1996-08-13','M',35000,'2020-05-13');
+   INSERT INTO employee VALUES(103,'ANNU','SHREE','1998-08-12','F',35000,'2019-05-24');
+   INSERT INTO employee VALUES(104,'MOHNI','KUMARI','1995-02-23','F',42000,'2018-05-12');
+   /*insert into department*/
+   INSERT INTO department VALUES(11,'BANKING');
+   INSERT INTO department VALUES(12,'ACCOUNTING');
+   INSERT INTO department VALUES(13,'STAFF');
+   INSERT INTO department VALUES(14,'MANAGING');
+   /*insert into dept_employee*/
+   INSERT INTO dept_employee VALUES(100,11,'2018-05-10','2019-05-20');
+   INSERT INTO dept_employee VALUES(101,12,'2013-05-10','2019-05-20');
+   INSERT INTO dept_employee VALUES(103,12,'2012-05-10','2020-05-20');
+   INSERT INTO dept_employee VALUES(104,12,'2020-05-10','2019-05-20');
+   /*Find all employee*/
+   SELECT * FROM employee;
+   /*Find all department*/
+   SELECT * FROM department;
+   /*Find dept_employee*/
+   SELECT * FROM dept_employee;
+   /*Find all employees ordered by salary ASC*/
+   SELECT * FROM employee ORDER BY salary ASC;
+    /*Find all employees ordered by salary DESC*/
+    SELECT * FROM employee ORDER BY salary DESC;
+    /*Find all employees ordered by sex then name*/
+    SELECT * FROM employee ORDER BY gender, emp_name_first;
+    /*Find the first 5 employees in the table*/
+    SELECT * FROM employee LIMIT 5;
+    /*Find the first and last names of all employees*/
+    SELECT emp_name_first, emp_last_name FROM employee;
+    /*Find out all the different genders*/
+    SELECT DISTINCT gender FROM employee;
+    /*Find all male employees*/
+    SELECT * FROM employee WHERE gender =  'M';
+    /*Find all employees born between 1995 and 1997*/
+    SELECT * FROM employee WHERE birth_date BETWEEN '1995-02-23' AND '1998-08-12';
+    /*Find the average of all employee's salaries*/
+    SELECT AVG(salary) FROM employee;
+    /*Find the sum of all employee's salaries*/
+    SELECT SUM(salary) FROM employee;
+    /*Find out how many males and females there are*/
+    SELECT COUNT(gender),gender FROM employee GROUP BY gender;
+    /*Find a list of employee and department name*/
+    SELECT employee.emp_name_first AS dept_name FROM employee UNION SELECT department.dept_name FROM department;
+    
+      
