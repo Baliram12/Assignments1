@@ -1,0 +1,128 @@
+
+/*Boolean*/
+
+CREATE TABLE ticket_sales (
+concert_id INT NOT NULL PRIMARY KEY,
+available BOOLEAN NOT NULL
+);
+
+INSERT INTO ticket_sales (concert_id, available)
+VALUES
+(100, TRUE),
+(101, FALSE),
+(102, 't'),
+(103, 'f'),
+(104, 'true'),
+(105, 'false'),
+(106, 'y'),
+(107, 'n'),
+(108, 'yes'),
+(109, 'no'),
+(110, '1'),
+(111, '0');
+
+SELECT
+*
+FROM
+ticket_sales
+WHERE
+available = 'yes';
+
+/*CHAR, VARCHAR, and TEXT*/
+
+CREATE TABLE char_types (
+id serial PRIMARY KEY,
+a CHAR (4),
+b VARCHAR (16),
+c TEXT
+);
+
+INSERT INTO char_types (a, b, c)
+VALUES
+(
+'four',
+'Test varchar',
+'This is a test data for the text column'
+);
+
+select * from char_types;
+/*Integers*/
+
+CREATE TABLE albums (
+    album_id SERIAL PRIMARY KEY,
+    title VARCHAR (255) NOT NULL,
+    play_time SMALLINT NOT NULL,
+    library_record INT NOT NULL
+);
+
+INSERT INTO albums
+values (default,'Funhouse', 3600,2146483645 ),
+(default,'Darkside of the Moon', 4200, 214648348);
+
+select * from albums;
+
+/*Floating-point number*/
+CREATE TABLE floating_point_test (
+    floatn_test float8 not NULL,
+    real_test real NOT NULL,
+    numeric_test NUMERIC (3, 2)
+);
+
+INSERT INTO floating_point_test (floatn_test, real_test, numeric_test)
+VALUES
+    (9223372036854775807, 2147483647, 5.36), 
+    (9223372036854775800, 2147483640, 9.99);
+
+select * from floating_point_test;
+
+/*Temporal Data Types*/
+
+CREATE TABLE temporal_types (
+   	date_type DATE,
+	time_type TIME,
+	timestamp_type TIMESTAMP,
+	timestampz_type TIMESTAMPTZ,
+	interval_type INTERVAL
+);
+
+INSERT INTO temporal_types (
+   	date_type,
+	time_type,
+	timestamp_type,
+	timestampz_type,
+	interval_type)
+VALUES
+	('2000-06-28', '06:23:00', '2016-06-22 19:10:25-07', '2016-06-22 19:10:25-07', '1 year'),
+	('2010-06-28', '12:32:12','2016-06-22 19:10:25-07', '2016-06-22 19:10:25-07', '10 years 3 months 5 days');
+
+select  * from temporal_types;
+
+/*Array*/
+CREATE TABLE sal_emp (
+    name            text,
+    pay_by_quarter  integer[],
+    schedule        text[][]
+);
+
+INSERT INTO sal_emp
+    VALUES ('Bill',
+    '{10000, 10000, 10000, 10000}',
+    '{{"meeting", "lunch"}, {"training", "presentation"}}');
+    
+INSERT INTO sal_emp
+    VALUES ('Carol',
+    '{20000, 25000, 25000, 25000}',
+    '{{"breakfast", "consulting"}, {"meeting", "lunch"}}');
+    
+   select * from sal_emp;
+   
+  /*JSON*/
+  CREATE TABLE json_table (
+ 	json_type JSON,
+	jsonb_type JSONB
+);
+
+INSERT INTO json_table
+VALUES
+('{"title": "Influence","genres": ["Marketing & Sales","Self-Help","Psychology"],"published": true}', '{"title": "Sleeping Beauties","genres": ["Fiction","Thriller","Horror"],"published": false}');
+select * from  json_table;
